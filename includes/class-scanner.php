@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class ASS_Scanner {
+class WTAC_Scanner {
 
     public function run() {
         $results = [];
@@ -29,7 +29,7 @@ class ASS_Scanner {
                         $results[] = [
                                 'issue_type' => 'missing_alt',
                                 'message'    => sprintf(
-                                    __( 'Image missing alt attribute on %s', 'webtechee-accessscan' ),
+                                    __( 'Image missing alt attribute on %s', 'accessibility-site-scanner' ),
                                     esc_url( $url )
                                 ),
                                 'element' => esc_html( $img ),
@@ -46,7 +46,7 @@ class ASS_Scanner {
                         $results[] = [
                             'issue_type' => 'empty_link',
                             'message'    => sprintf(
-                                __( 'Empty link detected on %s', 'webtechee-accessscan' ),
+                                __( 'Empty link detected on %s', 'accessibility-site-scanner' ),
                                 esc_url( $url )
                             ),
                             'element' => esc_html( $links[0][ array_search( $link_text, $links[1], true ) ] ),

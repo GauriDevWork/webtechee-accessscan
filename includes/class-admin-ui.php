@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class ASS_Admin_UI {
+class WTAC_Admin_UI {
 
     private $results = [];
 
@@ -13,8 +13,8 @@ class ASS_Admin_UI {
 
     public function register_menu() {
         add_menu_page(
-            __( 'WebTechee AccessScan', 'webtechee-accessscan' ),
-            __( 'AccessScan', 'webtechee-accessscan' ),
+            __( 'WebTechee AccessScan', 'accessibility-site-scanner' ),
+            __( 'AccessScan', 'accessibility-site-scanner' ),
             'manage_options',
             'webtechee-accessscan',
             [ $this, 'render_page' ],
@@ -25,46 +25,46 @@ class ASS_Admin_UI {
 
     public function render_page() {
 
-        if ( isset( $_POST['wtas_run_scan'] ) ) {
+        if ( isset( $_POST['wtac_run_scan'] ) ) {
 
             if (
-                ! isset( $_POST['wtas_nonce'] ) ||
-                ! wp_verify_nonce( $_POST['wtas_nonce'], 'wtas_run_scan_action' )
+                ! isset( $_POST['wtac_nonce'] ) ||
+                ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wtac_nonce'] ) ), 'wtac_run_scan_action' )
             ) {
                 return;
             }
 
-            $scanner       = new ASS_Scanner();
+            $scanner       = new WTAC_Scanner();
             $this->results = $scanner->run();
         }
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e( 'WebTechee AccessScan', 'webtechee-accessscan' ); ?></h1>
+            <h1><?php esc_html_e( 'WebTechee AccessScan', 'accessibility-site-scanner' ); ?></h1>
 
             <p><?php esc_html_e(
                 'Run an automated accessibility scan to detect common accessibility issues.',
-                'webtechee-accessscan'
+                'accessibility-site-scanner'
             ); ?></p>
 
             <form method="post">
-                <?php wp_nonce_field( 'wtas_run_scan_action', 'wtas_nonce' ); ?>
+                <?php wp_nonce_field( 'wtac_run_scan_action', 'wtac_nonce' ); ?>
                 <p>
                     <input
                         type="submit"
-                        name="wtas_run_scan"
+                        name="wtac_run_scan"
                         class="button button-primary"
-                        value="<?php esc_attr_e( 'Run Scan', 'webtechee-accessscan' ); ?>">
+                        value="<?php esc_attr_e( 'Run Scan', 'accessibility-site-scanner' ); ?>">
                 </p>
             </form>
 
             <?php if ( ! empty( $this->results ) ) : ?>
-                <h2><?php esc_html_e( 'Scan Results', 'webtechee-accessscan' ); ?></h2>
+                <h2><?php esc_html_e( 'Scan Results', 'accessibility-site-scanner' ); ?></h2>
                 <table class="widefat striped">
                     <thead>
                         <tr>
-                            <th><?php esc_html_e( 'Element', 'webtechee-accessscan' ); ?></th>
-                            <th><?php esc_html_e( 'Issue Type', 'webtechee-accessscan' ); ?></th>
-                            <th><?php esc_html_e( 'Message', 'webtechee-accessscan' ); ?></th>
+                            <th><?php esc_html_e( 'Element', 'accessibility-site-scanner' ); ?></th>
+                            <th><?php esc_html_e( 'Issue Type', 'accessibility-site-scanner' ); ?></th>
+                            <th><?php esc_html_e( 'Message', 'accessibility-site-scanner' ); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,10 +81,10 @@ class ASS_Admin_UI {
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-            <?php elseif ( isset( $_POST['wtas_run_scan'] ) ) : ?>
+            <?php elseif ( isset( $_POST['wtac_run_scan'] ) ) : ?>
                 <p><?php esc_html_e(
                     'No accessibility issues detected.',
-                    'webtechee-accessscan'
+                    'accessibility-site-scanner'
                 ); ?></p>
             <?php endif; ?>
         </div>
