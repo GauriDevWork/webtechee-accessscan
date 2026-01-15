@@ -1,6 +1,6 @@
 === WebTechee AccessScan ===
 Contributors: gauri87
-Tags: accessibility, a11y, accessibility checker, wcag, alt text, accessibility audit
+Tags: accessibility, a11y, accessibility checker, wcag, alt text
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.2
